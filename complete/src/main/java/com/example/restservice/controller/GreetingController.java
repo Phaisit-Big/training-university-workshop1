@@ -1,29 +1,25 @@
 package com.example.restservice.controller;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.concurrent.atomic.AtomicLong;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.restservice.model.Greeting;
-
 
 @Controller
 public class GreetingController {
 
-	private final AtomicLong COUNTER = new AtomicLong();
 
-	private final String MESSAGE_TEMPLATE = "Hello, %s!";
-
-
+	/*
+	 * handle GET request for the url /greeting/hi
+	 * 
+	 * @param nickname - a query string parameter to show in the JSON response
+	 * @return a JSON with id field and nickname field corresponding to the parameter
+	 */
 	@RequestMapping(path="/greeting/hi", method=RequestMethod.GET)
 	public @ResponseBody Map<String, Object> hi(@RequestParam(value="nickname") String name) {
 
@@ -34,15 +30,15 @@ public class GreetingController {
 		return map;
 	}
 
-	
-	@RequestMapping(path="/greeting/hello", method=RequestMethod.GET)
-	public @ResponseBody Greeting hello(@RequestParam(value="nickname", defaultValue="World") String name) {
-		System.out.println("Processing /greeting/hello ....");
-
-		String message = String.format(MESSAGE_TEMPLATE, name);
-		return new Greeting(COUNTER.incrementAndGet(), message);
-		
-		//return new Greeting(counter.incrementAndGet(), "Hello, World!");
-	}	
+	/*
+	 * handle GET request for the url /greeting/hello
+	 * 
+	 * @param nickname - a query string parameter to show in the JSON response. the default value is "World".
+	 * @return a JSON from a Greeting object with a running id field and message "Hello " following with the nickname parameter
+	 */
+	// @RequestMapping(path="/greeting/hello", method=RequestMethod.GET)
+	// public @ResponseBody Greeting hello(@RequestParam(value="nickname", defaultValue="World") String name) {
+	// 	...
+	// }	
 
 }
