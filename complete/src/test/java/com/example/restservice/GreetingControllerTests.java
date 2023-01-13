@@ -36,6 +36,39 @@ public class GreetingControllerTests {
 	@Autowired
 	private MockMvc mockMvc;
 
+
+
+	@Test
+	public void bye_shouldReturnByeBye() throws Exception {
+
+		MvcResult result = this.mockMvc.perform(get("/bye"))//.andDo(print())
+				.andExpect(status().isOk())
+				.andReturn();
+
+		String content = result.getResponse().getContentAsString();
+
+		assertEquals("<H1>Bye Bye</H1>", content);
+
+
+	}
+
+	@Test
+	public void hiWithNickname_shouldReturnJSONWithNicknameField() throws Exception {
+
+
+		MvcResult result = this.mockMvc.perform(get("/greeting/hi").param("nickname", "Spring Test"))//.andDo(print())
+				.andExpect(status().isOk()).andExpect(jsonPath("$.nickname").value("Spring Test"))
+				.andReturn();
+
+		String content = result.getResponse().getContentAsString();
+		JSONObject jsonObject = new JSONObject(content);
+		
+		assertEquals("Spring Test", jsonObject.getString("nickname"));
+		assertTrue(jsonObject.getString("id").matches("[0-9]+"));
+
+	}
+
+
 	@Test
 	public void hello_shouldReturnDefaultMessage() throws Exception {
 
@@ -52,10 +85,10 @@ public class GreetingControllerTests {
 	}
 
 	@Test
-	public void helloWithName_shouldReturnTailoredMessage() throws Exception {
+	public void helloWithNickname_shouldReturnFormattedMessage() throws Exception {
 
 
-		MvcResult result = this.mockMvc.perform(get("/greeting/hello").param("name", "Spring Test"))//.andDo(print())
+		MvcResult result = this.mockMvc.perform(get("/greeting/hello").param("nickname", "Spring Test"))//.andDo(print())
 				.andExpect(status().isOk())
 				.andReturn();
 
