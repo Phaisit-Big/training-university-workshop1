@@ -37,32 +37,31 @@ public class GreetingControllerTests {
 	private MockMvc mockMvc;
 
 	@Test
-	public void hello_shouldReturnDefaultMessage() throws Exception {
+	public void bye_shouldReturnByeBye() throws Exception {
 
-		MvcResult result = this.mockMvc.perform(get("/greeting/hello"))//.andDo(print())
-				.andExpect(status().isOk())//.andExpect(jsonPath("$.message").value("Hello, World!"))
+		MvcResult result = this.mockMvc.perform(get("/bye"))//.andDo(print())
+				.andExpect(status().isOk())
 				.andReturn();
 
 		String content = result.getResponse().getContentAsString();
-		JSONObject jsonObject = new JSONObject(content);
 
-		assertEquals("Hello, World!", jsonObject.getString("message"));
-		assertTrue(jsonObject.getString("id").matches("[0-9]+"));
+		assertEquals("<H1>Bye Bye</H1>", content);
+
 
 	}
 
 	@Test
-	public void helloWithName_shouldReturnTailoredMessage() throws Exception {
+	public void hi_shouldReturnJSONWithNicknameField() throws Exception {
 
 
-		MvcResult result = this.mockMvc.perform(get("/greeting/hello").param("name", "Spring Test"))//.andDo(print())
-				.andExpect(status().isOk())
+		MvcResult result = this.mockMvc.perform(get("/greeting/hi").param("nickname", "Spring Test"))//.andDo(print())
+				.andExpect(status().isOk()).andExpect(jsonPath("$.nickname").value("Spring Test"))
 				.andReturn();
 
 		String content = result.getResponse().getContentAsString();
 		JSONObject jsonObject = new JSONObject(content);
 		
-		assertEquals("Hello, Spring Test!", jsonObject.getString("message"));
+		assertEquals("Spring Test", jsonObject.getString("nickname"));
 		assertTrue(jsonObject.getString("id").matches("[0-9]+"));
 
 	}
