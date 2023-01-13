@@ -36,9 +36,6 @@ public class GreetingController {
 	 * @param nickname - a query string parameter to show in the JSON response. the default value is "World".
 	 * @return a JSON from a Greeting object with a running id field and message "Hello " following with the nickname parameter
 	 */
-	// @RequestMapping(path="/greeting/hello", method=RequestMethod.GET)
-	// public @ResponseBody Greeting hello(@RequestParam(value="nickname", defaultValue="World") String name) {
-	// 	...
-	// }	
+	// @...  TODO: Add your code here
 
 }
