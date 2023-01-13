@@ -17,25 +17,22 @@ import org.springframework.test.web.servlet.MvcResult;
 
 @AutoConfigureMockMvc
 @SpringBootTest(classes=MainApplication.class)
-public class GreetingControllerTests {
+public class FarewellControllerTests {
 
 	@Autowired
 	private MockMvc mockMvc;
 
-
 	@Test
-	public void hi_shouldReturnJSONWithNicknameField() throws Exception {
+	public void bye_shouldReturnByeBye() throws Exception {
 
-
-		MvcResult result = this.mockMvc.perform(get("/greeting/hi").param("nickname", "Spring Test"))//.andDo(print())
-				.andExpect(status().isOk()).andExpect(jsonPath("$.nickname").value("Spring Test"))
+		MvcResult result = this.mockMvc.perform(get("/bye"))//.andDo(print())
+				.andExpect(status().isOk())
 				.andReturn();
 
 		String content = result.getResponse().getContentAsString();
-		JSONObject jsonObject = new JSONObject(content);
-		
-		assertEquals("Spring Test", jsonObject.getString("nickname"));
-		assertTrue(jsonObject.getString("id").matches("[0-9]+"));
+
+		assertEquals("<H1>Bye Bye</H1>", content);
+
 
 	}
 
