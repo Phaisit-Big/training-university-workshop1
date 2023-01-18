@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+//import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
@@ -34,6 +35,7 @@ public class GreetingControllerTests {
 		String content = result.getResponse().getContentAsString();
 		JSONObject jsonObject = new JSONObject(content);
 		
+
 		assertEquals("Spring Test", jsonObject.getString("nickname"));
 		assertTrue(jsonObject.getString("id").matches("[0-9]+"));
 
