@@ -21,13 +21,9 @@ public class GreetingController {
 	 * @return a JSON with id field and nickname field corresponding to the parameter
 	 */
 	@RequestMapping(path="/greeting/hi", method=RequestMethod.GET)
-	public @ResponseBody Map<String, Object> hi(@RequestParam(value="nickname") String name) {
+	public @ResponseBody String hi(@RequestParam(value="nickname", defaultValue="") String name) {
 
-		Map<String, Object> map = new TreeMap<String, Object>();
-		map.put("id", 1);
-		map.put("nickname", name);
-
-		return map;
+		return "Hi " + name;
 	}
 
 	/*
